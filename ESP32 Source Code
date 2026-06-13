@@ -1,0 +1,30 @@
+#define SOIL_PIN 34
+#define RELAY_PIN 26
+
+int moistureValue = 0;
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, HIGH);
+}
+
+void loop() {
+
+  moistureValue = analogRead(SOIL_PIN);
+
+  Serial.print("Soil Moisture: ");
+  Serial.println(moistureValue);
+
+  if (moistureValue > 2500) {
+    Serial.println("Soil Dry - Pump ON");
+    digitalWrite(RELAY_PIN, LOW);
+  }
+  else {
+    Serial.println("Soil Wet - Pump OFF");
+    digitalWrite(RELAY_PIN, HIGH);
+  }
+
+  delay(2000);
+}
